@@ -1,7 +1,6 @@
 const mongoose = require("mongoose");
 
-const user_schema = new mongoose.Schema({
-
+const userSchema = new mongoose.Schema({
     name: {
         type: String,
         required: true
@@ -9,9 +8,11 @@ const user_schema = new mongoose.Schema({
     email: {
         type: String,
         required: true,
-        unique: true
+        unique: true,
+        match: [/.+@.+\..+/, 'Please provide a valid email address.']
     }
+}, { timestamps: true }); // Adds createdAt and updatedAt fields
 
-});
+const User = mongoose.model('User', userSchema);
 
-const User = mongoose.model('User', user_schema);
+module.exports = User;
